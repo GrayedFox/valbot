@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "start:dev": "npx nodemon",
+    "build": "rimraf ./build && tsc",
+    "ship:prod": "<upload AWS lambda code>",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "eslint": "^9.3.0",
+    "eslint-config-prettier": "^9.1.0",
+    "nodemon": "^3.1.1",
+    "rimraf": "^5.0.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": "v20.11.0"
+  }
+}
