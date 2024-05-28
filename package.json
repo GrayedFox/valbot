@@ -1,21 +1,35 @@
 {
-  "scripts": {
-    "start:dev": "npx nodemon",
-    "build": "rimraf ./build && tsc",
-    "ship:prod": "<upload AWS lambda code>",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+  "dependencies": {
+    "@aws-sdk/client-ec2": "3.583.0",
+    "discord.js": "14.15.2",
+    "dotenv": "16.4.5",
+    "tweetnacl": "1.0.3"
   },
   "devDependencies": {
-    "@types/node": "^20.12.12",
-    "eslint": "^9.3.0",
-    "eslint-config-prettier": "^9.1.0",
-    "nodemon": "^3.1.1",
-    "rimraf": "^5.0.7",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "@types/aws-lambda": "8.10.138",
+    "@types/node": "20.12.12",
+    "esbuild": "0.21.4",
+    "eslint": "9.3.0",
+    "eslint-config-prettier": "9.1.0",
+    "nodemon": "3.1.1",
+    "rimraf": "5.0.7",
+    "ts-node": "10.9.2",
+    "typescript": "5.4.5"
   },
   "engines": {
     "node": "v20.11.0"
-  }
+  },
+  "scripts": {
+    "prebuild:dev": "rimraf ./build",
+    "build:dev": "esbuild ./src/index.ts --bundle --sourcemap --platform=node --target=es2020 --outfile=build/index.js",
+    "prebuild:prod": "rimraf ./dist",
+    "build:prod": "esbuild ./src/index.ts --bundle --minify --platform=node --target=es2020 --outfile=dist/index.js",
+    "postbuild:prod": "cd dist && zip -r valbot.zip index.js*",
+    "lint": "eslint ./src --ext .ts",
+    "lint:fix": "eslint ./src --ext .ts --fix",
+    "ship:prod": "aws lambda update-function-code --function-name valbot-lambda --zip-file fileb://dist/valbot.zip",
+    "start:dev": "npx nodemon",
+    "register:commands": "npx ts-node ./src/register-commands.ts"
+  },
+  "license": "AGPL-3.0-or-later"
 }
