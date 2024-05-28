@@ -1,7 +1,12 @@
 {
-    "editor.codeActionsOnSave": {
-        "source.fixAll": "always"
-    },
-    "eslint.validate": ["typescript"],
-    "files.insertFinalNewline": true
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always"
+  },
+  "editor.formatOnSave": true,
+  "eslint.validate": ["typescript"],
+  "files.insertFinalNewline": true,
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.indentSize": "tabSize"
 }
